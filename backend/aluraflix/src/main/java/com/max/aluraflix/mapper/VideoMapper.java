@@ -30,4 +30,11 @@ public class VideoMapper {
         return pageVideo.map(this::toDTO);
     }
 
+    public Video updateEntity(Video entity, VideoDTO dto) {
+        entity.setTitle(dto.getTitle());
+        entity.setDescription(dto.getDescription());
+        entity.setUrl(dto.getUrl());
+        return entity;
+    }
+
 }
