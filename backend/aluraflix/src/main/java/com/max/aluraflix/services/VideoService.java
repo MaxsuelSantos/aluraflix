@@ -34,4 +34,10 @@ public class VideoService {
         return mapper.toDTO(entity);
     }
 
+    @Transactional
+    public VideoDTO insert(VideoDTO dto) {
+        Video entity = mapper.toEntity(dto);
+        return mapper.toDTO(repository.save(entity));
+    }
+
 }
