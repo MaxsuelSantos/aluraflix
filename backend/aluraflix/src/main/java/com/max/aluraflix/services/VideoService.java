@@ -1,13 +1,16 @@
 package com.max.aluraflix.services;
 
 import com.max.aluraflix.dto.VideoDTO;
+import com.max.aluraflix.entities.Video;
 import com.max.aluraflix.mapper.VideoMapper;
 import com.max.aluraflix.repositories.VideoRepository;
+import com.max.aluraflix.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Service
@@ -23,6 +26,12 @@ public class VideoService {
     @Transactional(readOnly = true)
     public Page<VideoDTO> findAllPaged(Pageable pageable) {
         return mapper.toDTO(repository.findAll(pageable));
+    }
+
+    @Transactional(readOnly = true)
+    public VideoDTO findById(Long id) {
+        Video entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+        return mapper.toDTO(entity);
     }
 
 }
