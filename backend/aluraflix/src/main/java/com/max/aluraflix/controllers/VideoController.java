@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 
@@ -31,7 +32,7 @@ public class VideoController {
     }
 
     @PostMapping
-    public ResponseEntity<VideoDTO> insert(@RequestBody VideoDTO dto) {
+    public ResponseEntity<VideoDTO> insert(@Valid @RequestBody VideoDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);

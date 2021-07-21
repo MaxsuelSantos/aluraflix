@@ -1,14 +1,23 @@
 package com.max.aluraflix.dto;
 
-import com.max.aluraflix.entities.Video;
+import org.hibernate.validator.constraints.URL;
 
-import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class VideoDTO {
 
     private Long id;
+
+    @Size(min = 5, max = 50, message = "It must be between 5 and 50 characters long.")
+    @NotBlank
     private String title;
+
+    @Size(min = 10, max = 280, message = "It must be between 10 and 280 characters long.")
+    @NotBlank
     private String description;
+
+    @URL(message = "Must be a valid URL")
     private String url;
 
     public VideoDTO() {
