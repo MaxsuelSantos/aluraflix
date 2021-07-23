@@ -160,7 +160,7 @@ public class VideoServiceTests {
     }
 
     @Test
-    public void deleteShouldThrowDatabaseExceptionWhenIdDoesNotExists() {
+    public void deleteShouldThrowDatabaseExceptionWhenIntegrityViolation() {
 
         Assertions.assertThrows(DatabaseException.class, () -> {
             service.delete(dependentId);
