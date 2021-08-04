@@ -1,10 +1,10 @@
 package com.max.aluraflix.services;
 
-import com.max.aluraflix.dto.VideoDTO;
-import com.max.aluraflix.entities.Video;
-import com.max.aluraflix.mapper.VideoMapper;
+import com.max.aluraflix.dto.CategoryInsert;
+import com.max.aluraflix.dto.CategoryView;
+import com.max.aluraflix.entities.Category;
+import com.max.aluraflix.mapper.CategoryMapper;
 import com.max.aluraflix.repositories.CategoryRepository;
-import com.max.aluraflix.repositories.VideoRepository;
 import com.max.aluraflix.services.exceptions.DatabaseException;
 import com.max.aluraflix.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,46 +19,36 @@ import javax.persistence.EntityNotFoundException;
 
 
 @Service
-public class VideoService {
+public class CategoryService {
 
     @Autowired
-    private VideoRepository repository;
+    private CategoryRepository repository;
 
     @Autowired
-    CategoryRepository categoryRepository;
-
-    @Autowired
-    private VideoMapper mapper;
+    private CategoryMapper mapper;
 
 
     @Transactional(readOnly = true)
-    public Page<VideoDTO> findAllPaged(Pageable pageable) {
+    public Page<CategoryView> findAllPaged(Pageable pageable) {
         return mapper.toDTO(repository.findAll(pageable));
     }
 
     @Transactional(readOnly = true)
-    public VideoDTO findById(Long id) {
-        Video entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+    public CategoryView findById(Long id) {
+        Category entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
         return mapper.toDTO(entity);
     }
 
     @Transactional
-    public VideoDTO insert(VideoDTO dto) {
-        try {
-            if (dto.getCategoryId() == null) {
-                dto.setCategoryId(1L);
-            }
-            Video entity = mapper.toEntity(dto);
-            return mapper.toDTO(repository.save(entity));
-        } catch (DataIntegrityViolationException e) {
-            throw new ResourceNotFoundException("Category not found: " + dto.getCategoryId());
-        }
+    public CategoryView insert(CategoryInsert dto) {
+        Category entity = mapper.toEntity(dto);
+        return mapper.toDTO(repository.save(entity));
     }
 
     @Transactional
-    public VideoDTO update(Long id, VideoDTO dto) {
+    public CategoryView update(Long id, CategoryInsert dto) {
         try {
-            Video entity = repository.getOne(id);
+            Category entity = repository.getOne(id);
             mapper.updateEntity(entity, dto);
             entity = repository.save(entity);
             return mapper.toDTO(entity);

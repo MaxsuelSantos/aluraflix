@@ -15,6 +15,10 @@ public class Video {
     private String description;
     private String url;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public Video() {
     }
 
@@ -23,6 +27,15 @@ public class Video {
         this.title = title;
         this.description = description;
         this.url = url;
+
+    }
+
+    public Video(Long id, String title, String description, String url, Category category) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.category = category;
     }
 
     public Long getId() {
@@ -55,6 +68,14 @@ public class Video {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public boolean equals(Object object) {

@@ -1,5 +1,6 @@
 package com.max.aluraflix.dto;
 
+import com.max.aluraflix.entities.Video;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.NotBlank;
@@ -12,6 +13,8 @@ public class VideoDTO {
     @Size(min = 5, max = 50, message = "It must be between 5 and 50 characters long.")
     @NotBlank
     private String title;
+
+    private Long categoryId;
 
     @Size(min = 10, max = 280, message = "It must be between 10 and 280 characters long.")
     @NotBlank
@@ -28,6 +31,14 @@ public class VideoDTO {
         this.title = title;
         this.description = description;
         this.url = url;
+    }
+
+    public VideoDTO(Video entity) {
+        id = entity.getId();
+        title = entity.getTitle();
+        description = entity.getDescription();
+        url = entity.getUrl();
+        categoryId = entity.getCategory().getId();
     }
 
     public Long getId() {
@@ -60,5 +71,13 @@ public class VideoDTO {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

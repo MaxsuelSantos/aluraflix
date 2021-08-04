@@ -2,11 +2,16 @@ package com.max.aluraflix.mapper;
 
 import com.max.aluraflix.dto.VideoDTO;
 import com.max.aluraflix.entities.Video;
+import com.max.aluraflix.repositories.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VideoMapper {
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public Video toEntity(VideoDTO dto) {
         Video entity = new Video();
@@ -14,6 +19,7 @@ public class VideoMapper {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setUrl(dto.getUrl());
+        entity.setCategory(categoryRepository.getOne(dto.getCategoryId()));
         return entity;
     }
 
@@ -23,6 +29,7 @@ public class VideoMapper {
         dto.setTitle(entity.getTitle());
         dto.setDescription(entity.getDescription());
         dto.setUrl(entity.getUrl());
+        dto.setCategoryId(entity.getCategory().getId());
         return dto;
     }
 
@@ -34,6 +41,7 @@ public class VideoMapper {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setUrl(dto.getUrl());
+        entity.setCategory(categoryRepository.getOne(dto.getCategoryId()));
         return entity;
     }
 
