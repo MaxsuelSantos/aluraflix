@@ -2,6 +2,7 @@ package com.max.aluraflix.controllers;
 
 import com.max.aluraflix.dto.CategoryInsert;
 import com.max.aluraflix.dto.CategoryView;
+import com.max.aluraflix.dto.VideoDTO;
 import com.max.aluraflix.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,11 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity<CategoryView> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
+    }
+
+    @GetMapping("/{id}/videos")
+    public ResponseEntity<Page<VideoDTO>> findAllVideoPerCategory(@PathVariable Long id) {
+        return ResponseEntity.ok().body(service.findAllVideoPerCategory(id));
     }
 
     @PostMapping
