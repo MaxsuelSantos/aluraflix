@@ -22,8 +22,11 @@ public class VideoController {
 
 
     @GetMapping
-    public ResponseEntity<Page<VideoDTO>> findAllPaged(Pageable pageable) {
-        return ResponseEntity.ok().body(service.findAllPaged(pageable));
+    public ResponseEntity<Page<VideoDTO>> findAllPaged(
+            @RequestParam(value = "search", defaultValue = "") String search,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok().body(service.findAllPaged(search.trim(), pageable));
     }
 
     @GetMapping("/{id}")

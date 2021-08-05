@@ -32,8 +32,8 @@ public class VideoService {
 
 
     @Transactional(readOnly = true)
-    public Page<VideoDTO> findAllPaged(Pageable pageable) {
-        return mapper.toDTO(repository.findAll(pageable));
+    public Page<VideoDTO> findAllPaged(String search, Pageable pageable) {
+        return mapper.toDTO(repository.findAll(search, pageable));
     }
 
     @Transactional(readOnly = true)

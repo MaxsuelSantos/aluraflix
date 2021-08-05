@@ -58,7 +58,7 @@ public class VideoServiceTests {
         pageEntity = new PageImpl<>(List.of(video));
         pageDTO = new PageImpl<>((List.of(videoDTO)));
 
-        Mockito.when(repository.findAll((Pageable) any())).thenReturn(pageEntity);
+        Mockito.when(repository.findAll((String) any(), (Pageable) any())).thenReturn(pageEntity);
 
         Mockito.when(repository.save(any())).thenReturn(video);
 
@@ -83,7 +83,7 @@ public class VideoServiceTests {
 
         Pageable pageable = PageRequest.of(0, 10);
 
-        Page<VideoDTO> result = service.findAllPaged(pageable);
+        Page<VideoDTO> result = service.findAllPaged("SQLite", pageable);
 
         Assertions.assertNotNull(result);
 

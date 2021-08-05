@@ -40,7 +40,7 @@ public class VideoServiceTI {
 
         PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("title"));
 
-        Page<VideoDTO> result = service.findAllPaged(pageRequest);
+        Page<VideoDTO> result = service.findAllPaged("", pageRequest);
 
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertEquals("Middleware", result.getContent().get(0).getTitle());
@@ -54,7 +54,7 @@ public class VideoServiceTI {
 
         PageRequest pageRequest = PageRequest.of(0, 10);
 
-        Page<VideoDTO> result = service.findAllPaged(pageRequest);
+        Page<VideoDTO> result = service.findAllPaged("", pageRequest);
 
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertEquals(0, result.getNumber());
@@ -68,7 +68,7 @@ public class VideoServiceTI {
 
         PageRequest pageRequest = PageRequest.of(50, 10);
 
-        Page<VideoDTO> result = service.findAllPaged(pageRequest);
+        Page<VideoDTO> result = service.findAllPaged("SQLite", pageRequest);
 
         Assertions.assertTrue(result.isEmpty());
 

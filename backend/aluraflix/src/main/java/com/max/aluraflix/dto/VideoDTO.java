@@ -33,6 +33,14 @@ public class VideoDTO {
         this.url = url;
     }
 
+    public VideoDTO(Long id, String title, String description, String url, Long categoryId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.categoryId = categoryId;
+    }
+
     public VideoDTO(Video entity) {
         id = entity.getId();
         title = entity.getTitle();
